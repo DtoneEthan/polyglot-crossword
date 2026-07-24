@@ -1,0 +1,5 @@
+generate_puzzles.py
+__pycache__/
+*.pyc
+.DS_Store
+node_modules/

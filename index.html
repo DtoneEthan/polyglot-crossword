@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Polyglot Crossword — EN / ES / ZH / FR</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Noto+Sans+SC:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="app">
+    <!-- Header -->
+    <header class="header">
+      <div class="header-left">
+        <h1 class="logo">🌍 <span>Polyglot</span> Crossword</h1>
+        <p class="tagline">English · Español · 中文 · Français</p>
+      </div>
+      <div class="header-right">
+        <div class="lang-switcher" id="langSwitcher">
+          <button class="lang-btn active" data-lang="en">EN</button>
+          <button class="lang-btn" data-lang="es">ES</button>
+          <button class="lang-btn" data-lang="zh">中文</button>
+          <button class="lang-btn" data-lang="fr">FR</button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Toolbar -->
+    <div class="toolbar">
+      <div class="stats">
+        <span class="stat-item">⏱ <span id="timer">00:00</span></span>
+        <span class="stat-item">✅ <span id="progress">0/0</span></span>
+      </div>
+      <div class="actions">
+        <button class="btn btn-check" id="btnCheck">Check</button>
+        <button class="btn btn-reveal" id="btnReveal">Reveal</button>
+        <button class="btn btn-clear" id="btnClear">Clear</button>
+        <button class="btn btn-hint" id="btnHint">Hint</button>
+      </div>
+    </div>
+
+    <!-- Main game area -->
+    <main class="game-area">
+      <!-- Crossword grid -->
+      <div class="grid-panel">
+        <div class="grid-wrapper" id="gridWrapper">
+          <div class="grid" id="grid"></div>
+        </div>
+      </div>
+
+      <!-- Clues panel -->
+      <div class="clues-panel">
+        <div class="clue-section">
+          <h2 class="clue-title">Across →</h2>
+          <ul class="clue-list" id="acrossClues"></ul>
+        </div>
+        <div class="clue-section">
+          <h2 class="clue-title">Down ↓</h2>
+          <ul class="clue-list" id="downClues"></ul>
+        </div>
+      </div>
+    </main>
+
+    <!-- Current clue bar -->
+    <div class="current-clue-bar" id="currentClueBar">
+      <span class="current-clue-label" id="currentClueLabel">Tap a cell to start</span>
+    </div>
+
+    <!-- Mobile keyboard helper -->
+    <div class="mobile-helper" id="mobileHelper">
+      <input type="text" id="hiddenInput" maxlength="1" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+    </div>
+  </div>
+
+  <!-- Completion modal -->
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal">
+      <div class="modal-emoji">🎉</div>
+      <h2 class="modal-title">Solved!</h2>
+      <p class="modal-text" id="modalText">You completed the puzzle!</p>
+      <div class="modal-stats" id="modalStats"></div>
+      <button class="btn btn-primary" id="modalClose">Close</button>
+    </div>
+  </div>
+
+  <script src="game.js"></script>
+</body>
+</html>
