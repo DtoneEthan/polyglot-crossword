@@ -322,10 +322,10 @@
     state.cellEls[row][col].classList.remove('highlighted');
     state.cellEls[row][col].classList.add('selected');
 
-    // Focus input (brings up keyboard on mobile too)
+    // Focus the real cell input so the on-screen keyboard appears on mobile
     const input = state.inputEls[row][col];
     if (input) {
-      input.focus();
+      input.focus({ preventScroll: true });
       input.select();
     }
 
