@@ -31,6 +31,7 @@
   const $modalText = document.getElementById('modalText');
   const $modalStats = document.getElementById('modalStats');
   const $hiddenInput = document.getElementById('hiddenInput');
+  const $howtoOverlay = document.getElementById('howtoOverlay');
 
   // ===== Language metadata =====
   const LANG_META = {
@@ -38,6 +39,98 @@
     es: { name: 'Spanish',  nativeName: 'Español',  cellType: 'letter' },
     zh: { name: 'Chinese',  nativeName: '中文',      cellType: 'char'   },
     fr: { name: 'French',   nativeName: 'Français', cellType: 'letter' },
+  };
+
+  // ===== UI text (localized) =====
+  const I18N = {
+    en: {
+      howtoBtn: "❓ How to Play",
+      check: "Check", reveal: "Reveal", clear: "Clear", hint: "Hint",
+      tapToStart: "Tap a cell to start solving",
+      solvedTitle: "Solved!", solvedText: "You completed the puzzle!",
+      close: "Close", gotIt: "Got it!", dontShow: "Don't show again",
+    },
+    es: {
+      howtoBtn: "❓ Cómo jugar",
+      check: "Comprobar", reveal: "Revelar", clear: "Borrar", hint: "Pista",
+      tapToStart: "Toca una casilla para empezar",
+      solvedTitle: "¡Resuelto!", solvedText: "¡Completaste el rompecabezas!",
+      close: "Cerrar", gotIt: "¡Entendido!", dontShow: "No mostrar de nuevo",
+    },
+    zh: {
+      howtoBtn: "❓ 玩法说明",
+      check: "检查", reveal: "揭示", clear: "清空", hint: "提示",
+      tapToStart: "点击格子开始填字",
+      solvedTitle: "完成！", solvedText: "你解开了这道谜题！",
+      close: "关闭", gotIt: "明白了", dontShow: "不再自动显示",
+    },
+    fr: {
+      howtoBtn: "❓ Comment jouer",
+      check: "Vérifier", reveal: "Révéler", clear: "Effacer", hint: "Indice",
+      tapToStart: "Touchez une case pour commencer",
+      solvedTitle: "Résolu !", solvedText: "Vous avez complété la grille !",
+      close: "Fermer", gotIt: "Compris !", dontShow: "Ne plus afficher",
+    },
+  };
+
+  // ===== How-to-play content (localized) =====
+  const HOWTO = {
+    en: {
+      title: "How to Play",
+      intro: "Fill the grid with words from four languages — easier than it looks!",
+      steps: [
+        { icon: "🎯", t: "Goal", d: "Fill every white cell with the correct letter so all the words are complete." },
+        { icon: "👆", t: "Select a cell", d: "Tap any white square. Tap it again to switch between Across (→) and Down (↓)." },
+        { icon: "⌨️", t: "Type letters", d: "Use your keyboard, or the on-screen keyboard on a phone. (Chinese puzzle uses pinyin/IME.)" },
+        { icon: "➡️", t: "Move around", d: "Arrow keys or Tab move between cells and words. Press Space to flip direction." },
+        { icon: "🧩", t: "Read the clues", d: "Across (→) and Down (↓) lists are on the right. The numbers match the small numbers on the grid." },
+        { icon: "🛠️", t: "Need help?", d: "Check = verify, Reveal = show current word, Hint = fill one letter, Clear = reset all." },
+        { icon: "🌍", t: "Switch language", d: "Pick EN / ES / 中文 / FR anytime from the top to play a different puzzle." },
+        { icon: "🏆", t: "Win", d: "Fill every cell correctly and the puzzle is solved!" },
+      ],
+    },
+    es: {
+      title: "Cómo jugar",
+      intro: "Rellena la cuadrícula con palabras en cuatro idiomas. ¡Más fácil de lo que parece!",
+      steps: [
+        { icon: "🎯", t: "Meta", d: "Rellena cada casilla blanca con la letra correcta para completar todas las palabras." },
+        { icon: "👆", t: "Elige una casilla", d: "Toca cualquier casilla blanca. Tócala de nuevo para cambiar entre Horizontal (→) y Vertical (↓)." },
+        { icon: "⌨️", t: "Escribe", d: "Usa tu teclado o el teclado en pantalla del móvil. (El puzzle en chino usa pinyin/IME.)" },
+        { icon: "➡️", t: "Muévete", d: "Las flechas o Tab mueven entre casillas y palabras. Pulsa Espacio para cambiar de dirección." },
+        { icon: "🧩", t: "Lee las pistas", d: "Las listas Horizontal (→) y Vertical (↓) están a la derecha. Los números coinciden con los de la cuadrícula." },
+        { icon: "🛠️", t: "¿Necesitas ayuda?", d: "Comprobar = verificar, Revelar = mostrar palabra, Pista = una letra, Borrar = reiniciar." },
+        { icon: "🌍", t: "Cambia de idioma", d: "Elige EN / ES / 中文 / FR arriba para jugar a otro puzzle." },
+        { icon: "🏆", t: "Gana", d: "¡Rellena todas las casillas correctamente y resuelto!" },
+      ],
+    },
+    zh: {
+      title: "玩法说明",
+      intro: "用四种语言填字——比看起来简单！",
+      steps: [
+        { icon: "🎯", t: "目标", d: "把每个白色格子填入正确的字（用拼音或输入法），让所有词语都完整。" },
+        { icon: "👆", t: "选格子", d: "点击任意白色格子；再点一次可在横向（→）和纵向（↓）之间切换。" },
+        { icon: "⌨️", t: "输入", d: "用键盘，或在手机上用屏幕键盘填写。（中文谜题用拼音/输入法。）" },
+        { icon: "➡️", t: "移动", d: "方向键或 Tab 在格子与词语间移动；按空格切换方向。" },
+        { icon: "🧩", t: "看提示", d: "右侧是横向（→）和纵向（↓）提示，格子上的小数字与提示编号对应。" },
+        { icon: "🛠️", t: "需要帮助", d: "检查=核对；揭示=显示当前词；提示=填一个字；清空=全部清除。" },
+        { icon: "🌍", t: "切换语言", d: "顶部随时选择 EN / ES / 中文 / FR 玩不同的谜题。" },
+        { icon: "🏆", t: "通关", d: "所有格子都填对，谜题就解开啦！" },
+      ],
+    },
+    fr: {
+      title: "Comment jouer",
+      intro: "Remplissez la grille avec des mots en quatre langues. Plus simple qu’il n’y paraît !",
+      steps: [
+        { icon: "🎯", t: "But", d: "Remplissez chaque case blanche avec la bonne lettre pour compléter tous les mots." },
+        { icon: "👆", t: "Choisir", d: "Touchez une case blanche. Retouchez pour basculer entre Horizontal (→) et Vertical (↓)." },
+        { icon: "⌨️", t: "Saisir", d: "Utilisez votre clavier ou le clavier à l’écran du téléphone. (Le puzzle chinois utilise pinyin/IME.)" },
+        { icon: "➡️", t: "Se déplacer", d: "Les flèches ou Tab déplacent entre cases et mots. Espace inverse le sens." },
+        { icon: "🧩", t: "Lire les indices", d: "Les listes Horizontal (→) et Vertical (↓) sont à droite. Les numéros correspondent à ceux de la grille." },
+        { icon: "🛠️", t: "Besoin d’aide ?", d: "Vérifier = contrôler, Révéler = montrer le mot, Indice = une lettre, Effacer = réinitialiser." },
+        { icon: "🌍", t: "Changer de langue", d: "Choisissez EN / ES / 中文 / FR en haut pour un autre puzzle." },
+        { icon: "🏆", t: "Gagner", d: "Remplissez toutes les cases correctement pour résoudre la grille !" },
+      ],
+    },
   };
 
   // ===== Init =====
@@ -53,6 +146,11 @@
     }
     bindEvents();
     loadPuzzle('en');
+
+    // Show how-to on first visit (unless the user opted out)
+    if (!localStorage.getItem('polyglot_howto_dontshow')) {
+      showHowto();
+    }
   }
 
   // ===== Load puzzle for a language =====
@@ -142,6 +240,7 @@
     }
 
     updateCurrentClueBar();
+    updateUIText();
   }
 
   // ===== Render clues =====
@@ -297,7 +396,7 @@
       const arrow = word.direction === 'across' ? '→' : '↓';
       $currentClueLabel.textContent = `${word.clue.number} ${arrow} ${word.clue.clue}`;
     } else {
-      $currentClueLabel.textContent = 'Tap a cell to start solving';
+      $currentClueLabel.textContent = I18N[state.lang].tapToStart;
     }
   }
 
@@ -633,7 +732,8 @@
     const revealed = state.revealedCells.size;
     const total = countActiveCells();
 
-    $modalText.textContent = `You completed the ${LANG_META[state.lang].name} puzzle!`;
+    document.getElementById('modalOverlay').querySelector('.modal-title').textContent = I18N[state.lang].solvedTitle;
+    $modalText.textContent = I18N[state.lang].solvedText;
     $modalStats.innerHTML = `
       ⏱ Time: <strong>${elapsed}</strong><br>
       ✏️ Cells filled: <strong>${total}</strong><br>
@@ -685,6 +785,65 @@
     return `${String(min).padStart(2, '0')}:${String(sec).padStart(2, '0')}`;
   }
 
+  // ===== How-to-play =====
+  function renderHowto() {
+    const h = HOWTO[state.lang];
+    if (!h) return;
+    document.getElementById('howtoTitle').textContent = h.title;
+    document.getElementById('howtoIntro').textContent = h.intro;
+    const ul = document.getElementById('howtoSteps');
+    ul.innerHTML = '';
+    h.steps.forEach(s => {
+      const li = document.createElement('li');
+      li.className = 'howto-step';
+      const icon = document.createElement('span');
+      icon.className = 'howto-icon';
+      icon.textContent = s.icon;
+      const body = document.createElement('span');
+      body.className = 'howto-body';
+      const strong = document.createElement('strong');
+      strong.textContent = s.t;
+      const desc = document.createElement('span');
+      desc.textContent = s.d;
+      body.appendChild(strong);
+      body.appendChild(desc);
+      li.appendChild(icon);
+      li.appendChild(body);
+      ul.appendChild(li);
+    });
+  }
+
+  function showHowto() {
+    renderHowto();
+    const cb = document.getElementById('howtoDontShow');
+    if (cb) cb.checked = !!localStorage.getItem('polyglot_howto_dontshow');
+    $howtoOverlay.classList.add('show');
+  }
+
+  function hideHowto() {
+    $howtoOverlay.classList.remove('show');
+  }
+
+  function updateUIText() {
+    const t = I18N[state.lang];
+    if (!t) return;
+    const set = (id, text) => {
+      const el = document.getElementById(id);
+      if (el) el.textContent = text;
+    };
+    set('btnHowto', t.howtoBtn);
+    set('btnCheck', t.check);
+    set('btnReveal', t.reveal);
+    set('btnClear', t.clear);
+    set('btnHint', t.hint);
+    set('howtoDontShowLabel', t.dontShow);
+    set('howtoClose', t.gotIt);
+    set('modalClose', t.close);
+    if (state.selRow < 0) {
+      $currentClueLabel.textContent = t.tapToStart;
+    }
+  }
+
   // ===== Mobile detection =====
   function isMobile() {
     return /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent);
@@ -699,6 +858,7 @@
         document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
         loadPuzzle(lang);
+        if ($howtoOverlay.classList.contains('show')) renderHowto();
       });
     });
 
@@ -748,6 +908,19 @@
     });
     $modalOverlay.addEventListener('click', (e) => {
       if (e.target === $modalOverlay) $modalOverlay.classList.remove('show');
+    });
+
+    // How-to-play modal
+    document.getElementById('btnHowto').addEventListener('click', showHowto);
+    document.getElementById('howtoClose').addEventListener('click', hideHowto);
+    document.getElementById('howtoCloseX').addEventListener('click', hideHowto);
+    $howtoOverlay.addEventListener('click', (e) => {
+      if (e.target === $howtoOverlay) hideHowto();
+    });
+    const dontShow = document.getElementById('howtoDontShow');
+    dontShow.addEventListener('change', (e) => {
+      if (e.target.checked) localStorage.setItem('polyglot_howto_dontshow', '1');
+      else localStorage.removeItem('polyglot_howto_dontshow');
     });
 
     // Hidden input for mobile

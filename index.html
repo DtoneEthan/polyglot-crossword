@@ -34,6 +34,7 @@
         <span class="stat-item">✅ <span id="progress">0/0</span></span>
       </div>
       <div class="actions">
+        <button class="btn btn-help" id="btnHowto">❓ How to Play</button>
         <button class="btn btn-check" id="btnCheck">Check</button>
         <button class="btn btn-reveal" id="btnReveal">Reveal</button>
         <button class="btn btn-clear" id="btnClear">Clear</button>
@@ -82,6 +83,21 @@
       <p class="modal-text" id="modalText">You completed the puzzle!</p>
       <div class="modal-stats" id="modalStats"></div>
       <button class="btn btn-primary" id="modalClose">Close</button>
+    </div>
+  </div>
+
+  <!-- How-to-play modal -->
+  <div class="modal-overlay" id="howtoOverlay">
+    <div class="modal modal-howto">
+      <button class="modal-close-x" id="howtoCloseX" aria-label="Close">×</button>
+      <div class="modal-emoji">📖</div>
+      <h2 class="modal-title" id="howtoTitle">How to Play</h2>
+      <p class="modal-text" id="howtoIntro"></p>
+      <ul class="howto-steps" id="howtoSteps"></ul>
+      <div class="howto-footer">
+        <label class="howto-noshow"><input type="checkbox" id="howtoDontShow"> <span id="howtoDontShowLabel">Don't show again</span></label>
+        <button class="btn btn-primary" id="howtoClose">Got it!</button>
+      </div>
     </div>
   </div>
 

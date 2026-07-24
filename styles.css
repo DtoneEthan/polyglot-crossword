@@ -173,6 +173,9 @@ html, body {
 .btn-hint { background: #e8edf5; color: #4a6c8c; }
 .btn-hint:hover { background: #4a6c8c; color: #fff; }
 
+.btn-help { background: var(--accent); color: #fff; font-weight: 700; }
+.btn-help:hover { background: var(--accent-dark); color: #fff; }
+
 .btn-primary {
   background: var(--accent);
   color: #fff;
@@ -466,6 +469,93 @@ html, body {
   color: var(--text);
   margin-bottom: 20px;
   font-weight: 600;
+}
+
+/* ===== How-to-play modal ===== */
+.modal-howto {
+  position: relative;
+  max-width: 460px;
+  text-align: left;
+  padding: 32px 36px;
+}
+
+.modal-howto .modal-emoji,
+.modal-howto .modal-title {
+  text-align: center;
+}
+
+.howto-steps {
+  list-style: none;
+  padding: 0;
+  margin: 10px 0 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 13px;
+}
+
+.howto-step {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  font-size: 0.92rem;
+  line-height: 1.45;
+  color: var(--text);
+}
+
+.howto-step .howto-icon {
+  font-size: 1.35rem;
+  line-height: 1.3;
+  flex-shrink: 0;
+  width: 28px;
+  text-align: center;
+}
+
+.howto-step .howto-body strong {
+  display: block;
+  color: var(--accent);
+  font-weight: 700;
+  margin-bottom: 2px;
+}
+
+.howto-step .howto-body span {
+  color: var(--text-muted);
+}
+
+.howto-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 6px;
+  flex-wrap: wrap;
+}
+
+.howto-noshow {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.modal-close-x {
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  background: none;
+  border: none;
+  font-size: 1.9rem;
+  line-height: 1;
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: 0;
+  transition: color 0.15s;
+}
+
+.modal-close-x:hover {
+  color: var(--text);
 }
 
 /* ===== Responsive ===== */
