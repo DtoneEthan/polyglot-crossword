@@ -281,7 +281,7 @@ html, body {
   background: transparent;
   text-align: center;
   font-family: var(--font-main);
-  font-size: 1.1rem;
+  font-size: calc(var(--cell-size) * 0.46);
   font-weight: 700;
   color: var(--text);
   text-transform: uppercase;
@@ -298,7 +298,7 @@ html, body {
 
 .grid.lang-zh .cell input {
   font-family: var(--font-zh);
-  font-size: 1.4rem;
+  font-size: calc(var(--cell-size-zh) * 0.46);
   text-transform: none;
 }
 
@@ -438,6 +438,9 @@ html, body {
   text-align: center;
   box-shadow: var(--shadow-lg);
   max-width: 400px;
+  max-height: 90vh;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
   animation: slideUp 0.4s ease;
 }
 
@@ -561,8 +564,8 @@ html, body {
 /* ===== Responsive ===== */
 @media (max-width: 768px) {
   :root {
-    --cell-size: 32px;
-    --cell-size-zh: 40px;
+    --cell-size: min(34px, calc((100vw - 56px) / 14));
+    --cell-size-zh: min(44px, calc((100vw - 56px) / 5));
   }
 
   .app {
@@ -619,12 +622,51 @@ html, body {
   .mobile-helper {
     display: block;
   }
+
+  /* Bottom-sheet modal on mobile: slides up from the bottom,
+     does NOT cover the whole screen */
+  .modal-overlay {
+    align-items: flex-end;
+    justify-content: center;
+    padding: 0;
+  }
+
+  .modal {
+    width: 100%;
+    max-width: 100%;
+    border-radius: 18px 18px 0 0;
+    padding: 22px 20px calc(22px + env(safe-area-inset-bottom));
+    animation: sheetUp 0.35s ease;
+  }
+
+  .modal-howto {
+    padding: 22px 20px calc(22px + env(safe-area-inset-bottom));
+  }
+
+  .modal-close-x {
+    top: 10px;
+    right: 14px;
+  }
+
+  .howto-footer {
+    justify-content: flex-end;
+    margin-top: 14px;
+  }
+
+  /* >=16px prevents iOS auto-zoom and keeps the on-screen keyboard reliable */
+  .cell input { font-size: 16px; }
+  .grid.lang-zh .cell input { font-size: 16px; }
+}
+
+@keyframes sheetUp {
+  from { transform: translateY(100%); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
 }
 
 @media (max-width: 480px) {
   :root {
-    --cell-size: 28px;
-    --cell-size-zh: 34px;
+    --cell-size: min(30px, calc((100vw - 40px) / 14));
+    --cell-size-zh: min(40px, calc((100vw - 40px) / 5));
   }
 
   .clues-panel {
